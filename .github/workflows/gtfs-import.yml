@@ -1,0 +1,15 @@
+name: GTFS Auto Import
+on:
+  schedule:
+    - cron: '0 2 * * *'  # Tous les jours à 2h du matin
+  workflow_dispatch:      # Permet de déclencher manuellement
+
+jobs:
+  import-gtfs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger GTFS Import
+        run: |
+          curl -X POST "https://feemilcayxlszizvedii.supabase.co/functions/v1/cron-gtfs-import" \
+            -H "Authorization: Bearer ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}" \
+            -H "Content-Type: application/json" 

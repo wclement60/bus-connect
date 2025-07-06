@@ -1,0 +1,110 @@
+.timetable-header {
+  width: 100%;
+  background-color: #ffffff;
+  border-bottom: 1px solid rgba(229, 231, 235, 0.5);
+  padding: 0;
+  margin-bottom: 1rem;
+  position: relative;
+}
+
+/* Mode sombre pour timetable-header */
+.dark .timetable-header {
+  background-color: #1f2937;
+  border-bottom: 1px solid rgba(75, 85, 99, 0.5);
+}
+
+.header-content {
+  max-width: 80rem;
+  margin: 0 auto;
+  padding: 0.75rem 1rem;
+}
+
+.line-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 0 1.5rem 0;
+}
+
+.line-number {
+  height: 2.50rem;
+  min-width: 100px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 1rem;
+  font-family: 'Naotypo-Bold';
+  font-weight: 900;
+  letter-spacing: 0.5px;
+  font-size: 1.40rem;
+  white-space: nowrap;
+ 
+}
+
+.line-number-text {
+  display: inline-block;
+  line-height: 1;
+  transform: translateY(1px);
+}
+
+.line-name {
+  font-size: 1.0rem;
+  color: #555555;
+  margin-top: 0.2rem;
+  text-align: center;
+  word-wrap: break-word;
+  word-break: break-word;
+  white-space: normal;
+  padding: 0 3px;
+  line-height: 1.2;
+  position: relative;
+  z-index: 999;
+}
+
+/* Mode sombre pour line-name */
+.dark .line-name {
+  color: #d1d5db;
+} 
+
+/* Styles pour la cloche de notification de trafic */
+.traffic-notification-bell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.05);
+  transition: all 0.2s ease;
+  width: 44px;
+  height: 44px;
+  box-sizing: border-box;
+}
+
+.traffic-notification-bell:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+  transform: scale(1.05);
+}
+
+.dark .traffic-notification-bell {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.dark .traffic-notification-bell:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Animation pour le badge de notification */
+@keyframes pulse-notification {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+.traffic-notification-bell .notification-badge {
+  animation: pulse-notification 2s infinite;
+} 

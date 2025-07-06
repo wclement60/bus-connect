@@ -1,0 +1,16 @@
+{
+  "name": "bus-connect-scripts",
+  "version": "1.0.0",
+  "description": "Scripts for Bus Connect admin tasks",
+  "main": "update_stop_cities.js",
+  "scripts": {
+    "update-cities": "node update_stop_cities.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@supabase/supabase-js": "^2.0.0",
+    "dotenv": "^16.0.0",
+    "node-fetch": "^2.6.7"
+  }
+} 

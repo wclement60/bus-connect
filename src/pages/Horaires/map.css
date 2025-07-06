@@ -1,0 +1,654 @@
+/* Styles pour le composant de carte */
+.map-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 9999;
+  background-color: white;
+}
+
+.map-container {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.map-loading {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(255, 255, 255, 0.7);
+  z-index: 10;
+}
+
+.map-spinner {
+  width: 48px;
+  height: 48px;
+  border: 3px solid #f3f3f3;
+  border-top: 3px solid #3B82F6;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.map-close-button {
+  position: absolute;
+  top: 16px;
+  right: 31px;
+  background-color: white;
+  color: #333;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  z-index: 15;
+  cursor: pointer;
+}
+
+.map-close-button:hover {
+  background-color: #f0f0f0;
+}
+
+.map-error {
+  position: absolute;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #ef4444;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 4px;
+  z-index: 15;
+}
+
+/* Styles pour l'info de la ligne */
+.map-route-info {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  z-index: 15;
+
+}
+
+.route-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 36px;
+  height: 24px;
+  border-radius: 4px;
+  font-weight: bold;
+  font-size: 14px;
+  padding: 0 8px;
+  margin-right: 8px;
+}
+
+.route-name {
+  font-size: 14px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #333;
+}
+
+/* Styles pour les marqueurs intermédiaires */
+.stop-marker {
+  box-sizing: border-box;
+  width: 14px;
+  height: 14px;
+  background-color: white; /* Fond blanc */
+  border-style: solid; /* Style de bordure */
+  border-radius: 50%;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.stop-marker:hover {
+  transform: scale(1.5);
+}
+
+/* Conteneur pour le marqueur de terminus (point + étiquette) */
+.terminus-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  position: relative;
+}
+
+/* Le gros point du terminus */
+.terminus-point {
+  box-sizing: border-box;
+  width: 20px;
+  height: 20px;
+  background-color: white;
+  border-style: solid;
+  border-width: 4px; /* Bordure plus épaisse */
+  border-radius: 50%;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.25);
+}
+
+/* L'étiquette nominative sous le point */
+.terminus-name-label {
+  position: absolute;
+  top: 28px;
+  padding: 2px 8px;
+  border-radius: 12px;
+  background-color: rgba(255, 255, 255, 0.9);
+  color: #333;
+  font-size: 11px;
+  font-weight: 500;
+  white-space: nowrap;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  transform: translateX(-50%);
+  left: 50%;
+  z-index: 1; /* Très faible z-index */
+}
+
+.start-marker {
+  background-color: #28a745; /* Vert pour le départ */
+}
+
+.end-marker {
+  background-color: #dc3545; /* Rouge pour l'arrivée */
+}
+
+.selected-stop-marker {
+  cursor: pointer;
+  z-index: 2;
+  transition: transform 0.2s;
+}
+
+.selected-stop-marker:hover {
+  transform: scale(1.5);
+}
+
+/* Styles pour les marqueurs de véhicules */
+.vehicle-marker {
+  position: relative;
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+}
+
+.vehicle-marker.selected-vehicle {
+  transform: scale(1.4);
+}
+
+.vehicle-marker:hover {
+  transform: scale(1.2);
+}
+
+.vehicle-marker.selected-vehicle:hover {
+  transform: scale(1.5);
+}
+
+.vehicle-background {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.4);
+  position: relative;
+  overflow: visible;
+  z-index: 10; /* z-index élevé pour être au-dessus des étiquettes */
+}
+
+.vehicle-marker.selected-vehicle .vehicle-background,
+.vehicle-marker:hover .vehicle-background {
+  z-index: 11; /* Encore plus haut si sélectionné/survolé */
+}
+
+.bus-icon-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2; /* Au-dessus de la flèche */
+}
+
+.vehicle-arrow-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.5s ease-out; /* Transition douce pour la rotation */
+  z-index: 1;
+}
+
+.vehicle-arrow {
+  position: absolute;
+  top: -10px; /* Positionne la flèche au-dessus du cercle */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 12px;
+  height: 12px;
+}
+
+/* Vehicle details panel */
+.vehicle-details-panel {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 400px;
+  min-height: 400px;
+  max-height: 400px;
+  background-color: rgba(255, 255, 255, 0.98);
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.15);
+  transform: translateY(100%);
+  transition: transform 0.3s ease-in-out;
+  z-index: 1000;
+  overflow: hidden;
+  pointer-events: all !important;
+  display: flex;
+  flex-direction: column;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+  backdrop-filter: blur(10px);
+  touch-action: pan-y;
+  -webkit-overflow-scrolling: touch;
+}
+
+.vehicle-details-panel.visible {
+  transform: translateY(0);
+}
+
+.vehicle-details-header {
+  padding: 10px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  background-color: transparent;
+}
+
+.header-content {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+}
+
+.route-header-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+}
+
+.route-number {
+  font-weight: 700;
+  font-size: 18px;
+  color: white;
+  padding: 4px 0;
+  border-radius: 6px;
+  min-width: 55px;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.route-terminus {
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex: 1;
+}
+
+.vehicle-header-info {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background-color: rgba(245, 245, 245, 0.8);
+  padding: 4px 8px;
+  border-radius: 6px;
+  white-space: nowrap;
+  overflow: hidden;
+  margin-right: 20px;
+}
+
+.vehicle-icon-small {
+  flex-shrink: 0;
+}
+
+.vehicle-header-text {
+  font-size: 13px;
+  color: #444;
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.vehicle-id {
+  font-size: 13px;
+  color: #666;
+  font-weight: 600;
+  margin-left: auto;
+}
+
+.vehicle-details-header h4 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+}
+
+.vehicle-subtitle {
+  font-size: 0.85rem;
+  color: #666;
+  font-weight: normal;
+  margin-left: 4px;
+}
+
+.vehicle-details-content {
+  display: flex;
+  flex-direction: row;
+  height: calc(100% - 90px);
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.vehicle-info-column {
+  flex: 0 0 40%;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow-y: auto;
+  border-right: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.next-stops-column {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+}
+
+.vehicle-service-info {
+  margin-top: 16px;
+  font-size: 14px;
+  color: #555;
+  text-align: center;
+  background-color: rgba(240, 240, 240, 0.5);
+  padding: 8px 12px;
+  border-radius: 8px;
+}
+
+.arrival-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.arrival-time {
+  font-size: 12px;
+  color: #333;
+  margin-bottom: 8px;
+  font-weight: 500;
+  text-align: center;
+}
+
+.remaining-time-container {
+  background-color: rgba(240, 245, 255, 0.8);
+  border-radius: 12px;
+  padding: 10px;
+  width: 85%;
+  margin: 0 auto;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.remaining-time {
+  font-size: 24px;
+  font-weight: 800;
+  color: #2563eb;
+  line-height: 1;
+  letter-spacing: 1px;
+}
+
+.next-stops-list {
+  flex: 1;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
+  padding: 0 8px;
+}
+
+.stops-header {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+  padding: 12px 8px 8px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  position: sticky;
+  top: 0;
+  background-color: rgba(255, 255, 255, 0.95);
+  z-index: 5;
+  margin-bottom: 4px;
+}
+
+.next-stop-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 8px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  transition: background-color 0.2s;
+}
+
+.next-stop-item:last-child {
+  border-bottom: none;
+}
+
+.next-stop-item:hover {
+  background-color: rgba(0, 0, 0, 0.02);
+}
+
+.next-stop-name {
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+  flex: 1;
+  padding-right: 12px;
+}
+
+.next-stop-time {
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.time-text {
+  font-size: 14px;
+  font-weight: 600;
+  color: #4B5563; /* Gris par défaut pour les horaires théoriques */
+  display: flex;
+  align-items: center;
+}
+
+.scheduled-time {
+  font-size: 12px;
+  color: #4B5563;
+  text-decoration: line-through;
+  margin-top: 2px;
+  display: block;
+}
+
+.time-text.realtime {
+  color: #16a34a; /* Vert uniquement pour les horaires en temps réel */
+}
+
+.time-text.realtime.late {
+  color: #dc2626;
+}
+
+.time-text.realtime.early {
+  color: #f97316;
+}
+
+.time-text.realtime.ontime {
+  color: #16a34a;
+}
+
+.delay-badge {
+  display: inline-block;
+  font-size: 11px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  margin-left: 6px;
+  color: white;
+  font-weight: 500;
+}
+
+.delay-badge.late {
+  background-color: #dc2626;
+}
+
+.delay-badge.early {
+  background-color: #f97316;
+}
+
+.delay-badge.ontime {
+  background-color: #16a34a;
+}
+
+.close-panel-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-left: -35px;
+  color: #666;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  transition: background-color 0.2s;
+  background-color: rgba(0, 0, 0, 0.05);
+  align-self: flex-start;
+}
+
+.close-panel-button:hover {
+  color: #333;
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.no-stops-info {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  color: #888;
+  font-size: 14px;
+  text-align: center;
+  padding: 24px;
+}
+
+.skipped .next-stop-name {
+  text-decoration: line-through;
+  color: #888;
+}
+
+.skipped .time-text {
+  color: #888;
+  text-decoration: line-through;
+}
+
+/* Styles pour le mode sombre */
+@media (prefers-color-scheme: dark) {
+  .map-overlay {
+    background-color: #1f2937;
+  }
+  
+  .map-loading {
+    background-color: rgba(31, 41, 55, 0.7);
+  }
+  
+  .map-close-button {
+    background-color: #374151;
+    color: white;
+  }
+  
+  .map-close-button:hover {
+    background-color: #4b5563;
+  }
+  
+  
+  
+  .route-name {
+    color: #e5e7eb;
+  }
+  
+  .terminus-name-label {
+    background-color: rgba(40, 50, 60, 0.9);
+    color: #f0f0f0;
+  }
+}
+
+/* Styles pour les contrôles Mapbox */
+.mapboxgl-ctrl-group,
+.mapboxgl-ctrl,
+.mapboxgl-popup,
+.mapboxgl-popup-content,
+.mapboxgl-popup-tip,
+.mapboxgl-marker {
+  z-index: 10 !important; /* Forcer un z-index inférieur à celui du panneau */
+}
+
+/* Styles pour le conteneur Mapbox en mode plein écran */
+.mapboxgl-canvas-container.mapboxgl-interactive,
+.mapboxgl-ctrl-group button.mapboxgl-ctrl-compass {
+  z-index: 5 !important;
+}
+
+/* Assurer que les popups Mapbox restent en-dessous du panneau */
+.mapboxgl-popup {
+  z-index: 10 !important;
+}
+
+.mapboxgl-control-container .mapboxgl-ctrl-bottom-left,
+.mapboxgl-control-container .mapboxgl-ctrl-bottom-right {
+    z-index: 1000;
+}
+
+.mapboxgl-ctrl-logo,
+.mapboxgl-ctrl-attrib {
+    display: none !important;
+} 

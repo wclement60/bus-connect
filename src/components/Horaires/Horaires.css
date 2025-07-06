@@ -1,0 +1,1495 @@
+.horaires-timeline {
+  padding: 1.5rem 0;
+  width: 100%;
+  max-width: 90rem;
+  margin: 0 auto;
+  position: relative;
+  background-color: #f8fafc;
+}
+
+.horaires-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 90rem;
+  margin: 0 auto;
+  padding: 1rem;
+  font-family: 'Naotypo-Regular';
+  background-color: #f8fafc;
+  border-radius: 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  align-items: center;
+}
+
+.timetable-content {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* Styles pour les contrôles de date et heure */
+.date-time-wrapper {
+  display: flex;
+  justify-content: center;
+  padding: 0.5rem 0;
+  width: 100%;
+}
+
+.date-time-container {
+  background: white;
+  border-radius: 0.75rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  width: calc(100% - 10px);
+  margin: 0 5px;
+}
+
+.date-time-field {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 0.75rem;
+}
+
+.date-input-group,
+.time-input-group {
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
+
+.date-input-group {
+  padding-right: 0.75rem;
+  border-right: 1px solid #E5E7EB;
+}
+
+.time-input-group {
+  padding-left: 0.75rem;
+}
+
+.date-time-icon {
+  color: #6B7280;
+  margin-right: 0.5rem;
+  font-size: 1.25rem;
+}
+
+.date-time-input {
+  border: none;
+  background: transparent;
+  color: #374151;
+  font-size: 1.125rem;
+  padding: 0;
+  width: 100%;
+  font-weight: 500;
+}
+
+.date-time-input:focus {
+  outline: none;
+}
+
+/* Masquer les icônes natives des inputs */
+.no-calendar-icon::-webkit-calendar-picker-indicator {
+  display: none;
+}
+
+.no-time-icon::-webkit-calendar-picker-indicator {
+  display: none;
+}
+
+.no-calendar-icon::-webkit-inner-spin-button,
+.no-calendar-icon::-webkit-outer-spin-button,
+.no-time-icon::-webkit-inner-spin-button,
+.no-time-icon::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Styles pour la navigation entre les trajets */
+.navigation-controls {
+  display: flex;
+  justify-content: space-between;
+  width: calc(100% - 10px);
+  margin: 0.75rem 5px;
+  align-items: center;
+}
+
+.nav-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.nav-button:hover:not(:disabled) {
+  transform: scale(1.05);
+}
+
+.nav-button:active:not(:disabled) {
+  transform: scale(0.95);
+}
+
+.nav-button:disabled {
+  background-color: #D1D5DB;
+  cursor: not-allowed;
+}
+
+.nav-button svg {
+  width: 1.75rem;
+  height: 1.75rem;
+}
+
+/* Animation pour le changement de trajet */
+.timetable-content {
+  transition: opacity 0.3s ease-in-out;
+}
+
+.timetable-content.changing {
+  opacity: 0;
+}
+
+/* Style responsive */
+@media (max-width: 640px) {
+  .date-time-field {
+    padding: 0.5rem;
+  }
+
+  .date-input-group {
+    padding-right: 0.5rem;
+  }
+
+  .time-input-group {
+    padding-left: 0.5rem;
+  }
+
+  .date-time-icon {
+    font-size: 1.125rem;
+    margin-right: 0.375rem;
+  }
+
+  .date-time-input {
+    font-size: 1rem;
+  }
+
+  .navigation-controls {
+    gap: 0.75rem;
+    margin: 0.5rem 0;
+  }
+  
+  .nav-button {
+    width: 2.75rem;
+    height: 2.75rem;
+  }
+
+  .nav-button svg {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  .horaires-container {
+    padding: 0.5rem;
+  }
+
+  .timeline-item {
+    padding-left: 1.5rem;
+  }
+
+  .timeline-line {
+    left: 0.75rem;
+  }
+
+  .timeline-point {
+    left: 0.75rem;
+  }
+}
+
+.trip-indicator {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #4b5563;
+  min-width: 4rem;
+  text-align: center;
+}
+
+/* Animation pour le changement de trajet */
+@keyframes tripChange {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.trip-info.changing {
+  animation: tripChange 0.3s ease forwards;
+}
+
+/* Style responsive */
+@media (max-width: 640px) {
+  .navigation-controls {
+    padding: 10px;
+  }
+  
+  .nav-button {
+    width: 36px;
+    height: 36px;
+  }
+  
+  .trip-info {
+    font-size: 0.8rem;
+  }
+  
+  .departure-time {
+    font-size: 0.75rem;
+  }
+}
+
+.timeline-item {
+  position: relative;
+  padding-left: 2rem;
+  display: flex;
+  align-items: center;
+  min-height: 5rem;
+}
+
+/* Ligne qui relie les points (trait vertical) */
+.timeline-line {
+  position: absolute;
+  top: 50%;
+  left: 1rem;
+  width: 8px;
+  height: 5rem;
+  background-color: #3b82f6;
+  transform: translateX(-50%);
+  z-index: 1;
+  border-radius: 0;
+}
+
+/* Point d'arrêt de base */
+.timeline-point {
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background-color: white;
+  border: 3px solid #3b82f6;
+  z-index: 3;
+  transform: translate(-50%, -50%);
+}
+
+/* Point de départ */
+.timeline-point.first {
+  width: 20px;
+  height: 20px;
+  background-color: white;
+  border: 3px solid #3b82f6;
+}
+
+/* Point terminus */
+.timeline-point.last {
+  width: 20px;
+  height: 20px;
+  background-color: white;
+  border: 3px solid #3b82f6;
+}
+
+/* Ligne qui monte vers le point précédent */
+.timeline-line.before {
+  top: 0;
+  height: 50%;
+}
+
+/* Ligne qui descend vers le point suivant */
+.timeline-line.after {
+  top: 50%;
+  height: 50%;
+}
+
+/* Premier trait avec arrondi en haut */
+.timeline-item:first-child .timeline-line.after {
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+}
+
+/* Dernier trait avec arrondi en bas */
+.timeline-item:last-child .timeline-line.before {
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+}
+
+/* Style pour les informations d'arrêt */
+.timeline-stop {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 1.25rem 1.5rem 1.25rem 0;
+  background-color: transparent;
+}
+
+.timeline-stop:hover {
+  background-color: rgba(59, 130, 246, 0.05);
+}
+
+.stop-info {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.stop-name {
+  font-weight: 600;
+  color: #0f172a;
+  font-size: 1rem;
+}
+
+.stop-status {
+  display: block;
+  font-size: 0.85rem;
+  color: #64748b;
+  margin-top: 0.25rem;
+}
+
+.stop-time {
+  display: flex;
+  align-items: center;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #0f172a;
+  min-width: 3.5rem;
+  justify-content: flex-end;
+}
+
+/* Styles pour les messages */
+.horaires-error,
+.horaires-empty {
+  padding: 3rem 1.5rem;
+  text-align: center;
+  max-width: 80rem;
+  margin: 0 auto;
+}
+
+.horaires-error .error-message {
+  color: #dc2626;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background-color: rgba(220, 38, 38, 0.05);
+  border-radius: 0.5rem;
+  border-left: 4px solid #dc2626;
+}
+
+.horaires-empty .empty-message {
+  font-weight: 600;
+  color: #4b5563;
+  margin-bottom: 1.25rem;
+  font-size: 1.2rem;
+}
+
+.horaires-empty .empty-details {
+  color: #6b7280;
+  margin-bottom: 2rem;
+  text-align: left;
+  max-width: 32rem;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #f9fafb;
+  padding: 1.5rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.horaires-empty ul {
+  text-align: left;
+  margin-top: 0.75rem;
+  padding-left: 1.75rem;
+}
+
+.horaires-empty li {
+  margin-bottom: 0.5rem;
+  position: relative;
+}
+
+.horaires-empty li::before {
+  content: '';
+  position: absolute;
+  left: -1.25rem;
+  top: 0.5rem;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background-color: #6b7280;
+}
+
+/* Styles pour les informations de débogage */
+.debug-info {
+  margin-top: 2.5rem;
+  text-align: left;
+  border-top: 1px dashed #d1d5db;
+  padding-top: 1.5rem;
+}
+
+.debug-info summary {
+  cursor: pointer;
+  color: #6b7280;
+  font-size: 0.875rem;
+  margin-bottom: 0.75rem;
+  transition: color 0.2s ease;
+}
+
+.debug-info summary:hover {
+  color: #4b5563;
+}
+
+.debug-info pre {
+  background-color: #f3f4f6;
+  padding: 1.25rem;
+  border-radius: 0.5rem;
+  overflow-x: auto;
+  font-size: 0.8rem;
+  color: #1f2937;
+  border: 1px solid #e5e7eb;
+}
+
+/* Media queries pour la responsivité */
+@media (max-width: 768px) {
+  .horaires-container {
+    padding: 1rem;
+    border-radius: 0.75rem;
+  }
+  
+  .date-time-controls {
+    flex-direction: column;
+    padding: 1.25rem 1rem;
+    gap: 1rem;
+    border-radius: 0.75rem;
+  }
+  
+  .date-picker-container,
+  .time-picker-container {
+    width: 100%;
+    min-width: auto;
+  }
+  
+  .navigation-controls {
+    padding: 1.25rem 1rem;
+    border-radius: 0.75rem;
+  }
+  
+  .nav-button {
+    width: 3rem;
+    height: 3rem;
+  }
+  
+  .nav-button svg {
+    width: 1.75rem;
+    height: 1.75rem;
+  }
+  
+  .trip-indicator {
+    font-size: 1.1rem;
+  }
+  
+  .timeline-item {
+    padding-left: 4rem;
+    min-height: 4.5rem;
+  }
+  
+  /* Ajustement de la timeline en mode mobile */
+  .timeline-bar,
+  .timeline-bar-progress {
+    left: 2rem;
+  }
+  
+  .timeline-item::before {
+    left: 2rem;
+    margin-left: 8px;
+  }
+  
+  .timeline-item.first::before,
+  .timeline-item.last::before {
+    left: 2rem;
+    margin-left: 8px;
+  }
+  
+  .timeline-item:not(:last-child)::after {
+    left: 2rem;
+  }
+  
+  .timeline-stop {
+    padding: 1rem 1rem 1rem 0;
+  }
+}
+
+/* Style pour le conteneur du sélecteur de direction */
+.direction-selector-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+/* Style pour le label */
+.direction-select-label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #4B5563;
+}
+
+/* Style pour le groupe de sélection */
+.direction-select-group {
+  position: relative;
+  width: 100%;
+}
+
+/* Style pour le bouton personnalisé */
+.direction-select-button {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  background: white;
+  border: 1px solid #E5E7EB;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.direction-select-button:hover:not(:disabled) {
+  border-color: #D1D5DB;
+  background: #F9FAFB;
+}
+
+.direction-select-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background: #F3F4F6;
+}
+
+/* Style pour le contenu du bouton */
+.direction-select-content {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex: 1;
+  min-width: 0;
+}
+
+/* Style pour l'icône */
+.direction-select-icon {
+  color: #6B7280;
+  font-size: 1.25rem;
+}
+
+/* Style pour le texte */
+.direction-select-text {
+  color: #111827;
+  font-size: 0.875rem;
+  font-weight: 500;
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: calc(100vw - 120px);
+}
+
+/* Style pour le chevron */
+.direction-select-chevron {
+  width: 1.25rem;
+  height: 1.25rem;
+  color: #6B7280;
+  transition: transform 0.2s ease;
+}
+
+.direction-select-chevron.rotate {
+  transform: rotate(180deg);
+}
+
+/* Style pour le select natif */
+.direction-select-native {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+  z-index: 1;
+}
+
+/* Style pour la liste déroulante */
+.direction-select-native:focus + .direction-select-button {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+/* Styles pour les options du select */
+.direction-select-native option {
+  padding: 12px 16px;
+  font-size: 0.95rem;
+  color: #1f2937;
+  background-color: white;
+}
+
+/* Style pour l'option sélectionnée */
+.direction-select-native option:checked {
+  background-color: #2563eb;
+  color: white;
+}
+
+/* Style pour le survol des options */
+.direction-select-native option:hover {
+  background-color: #f3f4f6;
+}
+
+/* Style pour l'état désactivé */
+.direction-select-button:disabled {
+  background-color: #f3f4f6;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+/* Media queries pour le responsive */
+@media (max-width: 640px) {
+  .direction-selector-container {
+    padding: 0 1rem;
+  }
+
+  .direction-select-button {
+    padding: 10px 14px;
+  }
+
+  .direction-select-text {
+    font-size: 0.9rem;
+  }
+}
+
+/* Style pour la liste déroulante native */
+select.direction-select-native {
+  appearance: none;
+  -webkit-appearance: none;
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  padding: 12px 16px;
+  width: 100%;
+  font-size: 0.95rem;
+  color: #1f2937;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Style pour les options */
+select.direction-select-native option {
+  padding: 12px 16px;
+  background-color: white;
+  color: #1f2937;
+  font-size: 0.95rem;
+  border: none;
+}
+
+/* Style pour l'option sélectionnée */
+select.direction-select-native option:checked {
+  background-color: #2563eb;
+  color: white;
+}
+
+/* Style pour le survol des options */
+select.direction-select-native option:hover {
+  background-color: #f3f4f6;
+}
+
+/* Styles Tailwind-like pour la timeline */
+.bg-\[\#F6F6F6\] {
+  padding-left: 1rem !important;
+}
+
+.rounded-lg {
+  border-radius: 0.5rem;
+}
+
+.p-6 {
+  padding: 1.5rem;
+}
+
+.space-y-6 > * + * {
+  margin-top: 1.5rem;
+}
+
+.relative {
+  position: relative;
+}
+
+.min-h-\[3\.5rem\] {
+  min-height: 3.5rem;
+}
+
+.flex {
+  display: flex;
+}
+
+.-mt-1 {
+  margin-top: -0.25rem;
+}
+
+.w-\[4\.5rem\] {
+  width: 4.5rem;
+}
+
+.pr-4 {
+  padding-right: 1rem;
+}
+
+.justify-end {
+  justify-content: flex-end;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.px-2 {
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+.whitespace-nowrap {
+  white-space: nowrap;
+}
+
+.font-bold {
+  font-weight: 700;
+}
+
+.font-medium {
+  font-weight: 500;
+}
+
+.text-sm {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+.text-base {
+  font-size: 1rem;
+  line-height: 1.5rem;
+}
+
+.text-\[\#666666\] {
+  color: #666666;
+}
+
+.text-\[\#1A1A1A\] {
+  color: #1A1A1A;
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
+.absolute {
+  position: absolute;
+}
+
+.w-full {
+  width: 100%;
+}
+
+.h-full {
+  height: 100%;
+}
+
+.opacity-20 {
+  opacity: 0.2;
+}
+
+.z-1 {
+  z-index: 1;
+}
+
+.z-2 {
+  z-index: 2;
+}
+
+.rounded-full {
+  border-radius: 9999px;
+}
+
+.bg-white {
+  background-color: white;
+}
+
+.w-5 {
+  width: 1.25rem;
+}
+
+.h-5 {
+  height: 1.25rem;
+}
+
+.border-4 {
+  border-width: 4px;
+}
+
+.w-3 {
+  width: 0.75rem;
+}
+
+.h-3 {
+  height: 0.75rem;
+}
+
+.border-2 {
+  border-width: 2px;
+}
+
+.ml-6 {
+  margin-left: 1.5rem;
+}
+
+.flex-1 {
+  flex: 1 1 0%;
+}
+
+.opacity-50 {
+  opacity: 0.5;
+}
+
+.transition-all {
+  transition-property: all;
+}
+
+.duration-200 {
+  transition-duration: 200ms;
+}
+
+.px-3 {
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+}
+
+.py-2 {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+.bg-\[\#F6F6F6\]\/60 {
+  background-color: rgba(246, 246, 246, 0.6);
+}
+
+.bg-white\/60 {
+  background-color: rgba(255, 255, 255, 0.6);
+}
+
+.shadow-sm {
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.text-xs {
+  font-size: 0.75rem;
+  line-height: 1rem;
+}
+
+.text-gray-500 {
+  color: #6b7280;
+}
+
+.mt-1 {
+  margin-top: 0.25rem;
+}
+
+/* Animation for loading state */
+.animate-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.5;
+  }
+}
+
+.bg-gray-200 {
+  background-color: #e5e7eb;
+}
+
+.w-16 {
+  width: 4rem;
+}
+
+.h-6 {
+  height: 1.5rem;
+}
+
+.w-32 {
+  width: 8rem;
+}
+
+.w-24 {
+  width: 6rem;
+}
+
+.h-4 {
+  height: 1rem;
+}
+
+.mb-2 {
+  margin-bottom: 0.5rem;
+}
+
+/* Classes for empty state */
+.mx-auto {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.h-12 {
+  height: 3rem;
+}
+
+.w-12 {
+  width: 3rem;
+}
+
+.text-gray-400 {
+  color: #9ca3af;
+}
+
+.mt-4 {
+  margin-top: 1rem;
+}
+
+.text-lg {
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+}
+
+.text-gray-900 {
+  color: #111827;
+}
+
+.mt-2 {
+  margin-top: 0.5rem;
+}
+
+.mt-3 {
+  margin-top: 0.75rem;
+}
+
+.list-disc {
+  list-style-type: disc;
+}
+
+.list-inside {
+  list-style-position: inside;
+}
+
+.max-w-md {
+  max-width: 28rem;
+}
+
+.mt-6 {
+  margin-top: 1.5rem;
+}
+
+.p-3 {
+  padding: 0.75rem;
+}
+
+.bg-gray-50 {
+  background-color: #f9fafb;
+}
+
+.rounded-md {
+  border-radius: 0.375rem;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.text-gray-700 {
+  color: #374151;
+}
+
+.overflow-auto {
+  overflow: auto;
+}
+
+.w-36 {
+  width: 9rem;
+}
+
+.w-64 {
+  width: 16rem;
+}
+
+.rounded {
+  border-radius: 0.25rem;
+}
+
+.mt-0\.5 {
+  margin-top: 0.125rem;
+}
+
+.direction-select-dropdown {
+  position: absolute;
+  top: calc(100% + 0.25rem);
+  left: 0;
+  right: 0;
+  background: white;
+  border: 1px solid #E5E7EB;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  z-index: 50;
+  max-height: 15rem;
+  overflow-y: auto;
+  animation: slideDown 0.2s ease;
+}
+
+.direction-select-option {
+  width: 100%;
+  text-align: left;
+  padding: 0.75rem 1rem;
+  background: transparent;
+  border: none;
+  color: #111827;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.direction-select-option:hover {
+  background: #F3F4F6;
+}
+
+.direction-select-option.selected {
+  background: #2563eb;
+  color: white;
+}
+
+.direction-select-option.selected:hover {
+  background: #1d4ed8;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-0.25rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.current-trip-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 100px;
+  text-align: center;
+}
+
+.trip-departure-time {
+  font-weight: 500;
+  color: #1f2937;
+  font-size: 0.9rem;
+}
+
+.trip-index {
+  font-size: 0.8rem;
+  color: #6b7280;
+  margin-top: 2px;
+}
+
+.trip-order-indicator {
+  display: block;
+  font-size: 0.65rem;
+  color: #6b7280;
+  font-style: italic;
+  margin-top: -2px;
+}
+
+/* Animation de chargement */
+@keyframes pulse {
+  0% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.5;
+  }
+}
+
+.animate-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.bg-gray-100 {
+  background-color: #F3F4F6;
+}
+
+.h-8 {
+  height: 2rem;
+}
+
+.w-32 {
+  width: 8rem;
+}
+
+.w-20 {
+  width: 5rem;
+}
+
+.rounded {
+  border-radius: 0.375rem;
+}
+
+.text-gray-300 {
+  color: #D1D5DB;
+}
+
+/* ===== Mode sombre ===== */
+/* Classes pour le mode sombre */
+.dark .horaires-container {
+  background-color: #111827;
+}
+
+.dark .timeline-container {
+  background-color: #111827;
+}
+
+.dark .section-container {
+  background: #1f2937;
+}
+
+.dark .dropdown-button {
+  color: #e5e7eb;
+}
+
+.dark .dropdown-button select {
+  color: #e5e7eb;
+  background-color: #1f2937;
+}
+
+.dark .departure-item:hover {
+  background-color: rgba(59, 130, 246, 0.1);
+}
+
+.dark .departure-time {
+  color: #f3f4f6;
+}
+
+.dark .departure-destination {
+  color: #9ca3af;
+}
+
+.dark .departure-stop {
+  color: #f3f4f6;
+}
+
+.dark .canceled .departure-time {
+  color: #ef4444;
+}
+
+.dark .departure-delay {
+  color: #9ca3af;
+}
+
+.dark .line-info {
+  color: #d1d5db;
+}
+
+.dark .time-marker {
+  background-color: #9ca3af;
+}
+
+.dark .departure-minute {
+  color: #d1d5db;
+}
+
+.dark .stop-name {
+  color: #9ca3af;
+}
+
+.dark .directions-container {
+  background-color: #111827;
+  border: 1px solid #374151;
+}
+
+.dark .directions-container:hover {
+  border-color: #6b7280;
+  background: #1f2937;
+}
+
+.dark .direction-button {
+  background: #1f2937;
+}
+
+.dark .direction-number {
+  color: #e5e7eb;
+}
+
+.dark .direction-name {
+  color: #d1d5db;
+}
+
+.dark .terminus-info {
+  color: #9ca3af;
+}
+
+.dark .date-navigation-container button {
+  color: #e5e7eb;
+  background-color: #1f2937;
+}
+
+.dark .date-navigation-container button.active {
+  background-color: #3b82f6;
+  color: white;
+}
+
+.dark .date-navigation-container button:hover:not(.active) {
+  background-color: #374151;
+}
+
+.dark .custom-date-picker {
+  background: #1f2937;
+  border: 1px solid #374151;
+}
+
+.dark .custom-date-picker input[type="date"] {
+  color: #e5e7eb;
+  background-color: #1f2937;
+}
+
+.dark .time-selector-container button {
+  background-color: #1f2937;
+  color: #e5e7eb;
+}
+
+.dark .time-selector-container button.active {
+  background-color: #3b82f6;
+  color: white;
+}
+
+.dark .time-selector-container button:hover:not(.active) {
+  background-color: #374151;
+}
+
+.dark .no-departures {
+  color: #9ca3af;
+}
+
+.dark .next-departure {
+  color: #e5e7eb;
+}
+
+.dark .timetable-content {
+  background-color: #1f2937;
+}
+
+.dark .stop-timeline-item {
+  background-color: rgba(31, 41, 55, 0.6);
+}
+
+.dark .stop-timeline-item:hover {
+  background-color: rgba(55, 65, 81, 0.6);
+}
+
+.dark .past .stop-name {
+  color: #6b7280;
+}
+
+.dark .transport-label {
+  color: #e5e7eb;
+}
+
+.dark .city-label {
+  color: #9ca3af;
+}
+
+.dark .status-time {
+  color: #9ca3af;
+}
+
+.dark .connection-item {
+  background-color: #374151;
+}
+
+.dark .date-picker-wrapper input {
+  background: #1f2937;
+  border: 1px solid #374151;
+  color: #e5e7eb;
+}
+
+.dark .time-slot-selector button {
+  background: #1f2937;
+  color: #e5e7eb;
+}
+
+.dark .time-slot-selector button:hover {
+  background: #374151;
+}
+
+.dark .time-slot-selector button.active {
+  background: #3b82f6;
+  color: white;
+}
+
+.dark .timeline-header h2 {
+  color: #e5e7eb;
+}
+
+.dark .timeline-header .info-text {
+  color: #9ca3af;
+}
+
+.dark .timeline-header .current-time {
+  color: #9ca3af;
+}
+
+.dark .loading-skeleton {
+  background-color: #374151;
+}
+
+.dark .loading-indicator {
+  color: #6b7280;
+}
+
+/* Mode sombre pour DateTimePicker */
+.dark .date-time-container {
+  background: #1f2937;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.dark .date-input-group {
+  border-right: 1px solid #374151;
+}
+
+.dark .date-time-icon {
+  color: #9ca3af;
+}
+
+.dark .date-time-input {
+  color: #e5e7eb;
+  background: transparent;
+}
+
+/* Mode sombre pour DirectionSelector */
+.dark .direction-select-label {
+  color: #9ca3af;
+}
+
+.dark .direction-select-button {
+  background: #1f2937;
+  border: 1px solid #374151;
+  color: #e5e7eb;
+}
+
+.dark .direction-select-button:hover:not(:disabled) {
+  border-color: #6b7280;
+  background: #374151;
+}
+
+.dark .direction-select-icon {
+  color: #9ca3af;
+}
+
+.dark .direction-select-text {
+  color: #e5e7eb;
+}
+
+.dark .direction-select-chevron {
+  color: #9ca3af;
+}
+
+.dark .direction-select-dropdown {
+  background: #1f2937;
+  border: 1px solid #374151;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.dark .direction-select-option {
+  color: #e5e7eb;
+  background: transparent;
+}
+
+.dark .direction-select-option:hover {
+  background: #374151;
+}
+
+.dark .direction-select-option.selected {
+  background: #3b82f6;
+  color: white;
+}
+
+.dark .direction-select-option.selected:hover {
+  background: #2563eb;
+}
+
+/* Mode sombre pour les contrôles de navigation */
+.dark .navigation-controls {
+  background-color: transparent;
+}
+
+.dark .nav-button {
+  background-color: #374151;
+  color: #e5e7eb;
+}
+
+.dark .nav-button:hover:not(:disabled) {
+  background-color: #4b5563;
+}
+
+.dark .nav-button:disabled {
+  background-color: #1f2937;
+  color: #4b5563;
+  cursor: not-allowed;
+}
+
+.dark .nav-button svg {
+  color: #e5e7eb;
+}
+
+.dark .nav-button:disabled svg {
+  color: #4b5563;
+}
+
+.dark .trip-indicator {
+  color: #9ca3af;
+}
+
+ 
